@@ -1,0 +1,265 @@
+#本测试文件在所有其他文件被运行后使用
+
+insert into school values(1,'江苏省溧阳中学','常州');
+
+#为方便仅仅测试理科
+
+#插入学生：
+
+#成功：
+insert into student values(1,'aaa','男','理科',1);
+insert into student values(2,'bbb','男','理科',1);
+insert into student values(3,'ccc','男','理科',1);
+insert into student values(4,'ddd','男','理科',1);
+insert into student values(5,'eee','男','理科',1);
+insert into student values(6,'fff','男','理科',1);
+insert into student values(7,'ggg','男','理科',1);
+insert into student values(8,'hhh','男','理科',1);
+insert into student values(9,'iii','男','理科',1);
+insert into student values(10,'jjj','男','理科',1);
+insert into student values(11,'kkk','男','理科',1);
+insert into student values(12,'lll','男','理科',1);
+insert into student values(13,'mmm','男','理科',1);
+insert into student values(14,'nnn','女','理科',1);
+insert into student values(15,'ooo','女','理科',1);
+insert into student values(16,'ppp','女','理科',1);
+insert into student values(17,'qqq','女','理科',1);	
+insert into student values(18,'rrr','女','理科',1);
+insert into student values(19,'sss','女','理科',1);
+insert into student values(20,'ttt','女','理科',1);
+insert into student values(21,'uuu','女','理科',1);
+insert into student values(22,'vvv','女','理科',1);
+insert into student values(23,'www','女','理科',1);
+insert into student values(24,'xxx','女','理科',1);
+insert into student values(25,'yyy','女','理科',1);	
+insert into student values(26,'zzz','女','理科',1);
+
+#失败：
+insert into student values(25,'zzz','女','理科',1);
+insert into student values(25,'zzz','女','其他',1);
+insert into student values(27,'zzz','女','其他',0);
+
+#插入选课信息：
+
+#成功：
+insert into course values(1,'物理','化学','政治','历史','地理','生物');
+insert into course values(2,'物理','化学','地理','政治','历史','生物');
+insert into course values(3,'物理','化学','历史','政治','地理','生物');
+insert into course values(4,'物理','化学','生物','政治','历史','地理');
+insert into course values(5,'物理','化学','政治','历史','生物','地理');
+insert into course values(6,'物理','化学','政治','地理','生物','历史');
+insert into course values(7,'物理','化学','政治','历史','地理','生物');
+insert into course values(8,'物理','化学','政治','历史','地理','生物');
+insert into course values(9,'物理','化学','政治','历史','地理','生物');
+insert into course values(10,'物理','化学','地理','生物','政治','历史');
+insert into course values(11,'物理','化学','政治','历史','地理','生物');
+insert into course values(12,'物理','化学','政治','历史','地理','生物');
+insert into course values(13,'物理','化学','政治','历史','地理','生物');
+insert into course values(14,'物理','化学','地理','政治','历史','生物');
+insert into course values(15,'物理','化学','政治','历史','生物','地理');
+insert into course values(16,'物理','化学','政治','地理','生物','历史');
+insert into course values(17,'物理','化学','政治','历史','地理','生物');
+insert into course values(18,'物理','化学','政治','历史','地理','生物');
+insert into course values(19,'物理','化学','政治','历史','地理','生物');
+insert into course values(20,'物理','化学','地理','生物','政治','历史');
+insert into course values(21,'物理','化学','政治','历史','地理','生物');
+insert into course values(22,'物理','化学','政治','历史','地理','生物');
+insert into course values(23,'物理','化学','历史','政治','地理','生物');
+
+#失败：
+insert into course values(24,'化学','物理','历史','政治','地理','生物');
+insert into course values(25,'历史','物理','化学','政治','地理','生物');
+insert into course values(26,'物理','化学','政治','政治','地理','生物');
+
+#插入主课成绩
+#成功：
+insert into main_score(id,chinese,math,english,bonus) values(1,110,129,108,40);
+insert into main_score(id,chinese,math,english,bonus) values(2,88,18,97,18);
+insert into main_score(id,chinese,math,english,bonus) values(3,42,151,11,32);
+insert into main_score(id,chinese,math,english,bonus) values(4,107,57,78,10);
+insert into main_score(id,chinese,math,english,bonus) values(5,18,112,98,0);
+insert into main_score(id,chinese,math,english,bonus) values(6,71,41,118,21);
+insert into main_score(id,chinese,math,english,bonus) values(7,66,45,44,3);
+insert into main_score(id,chinese,math,english,bonus) values(8,70,55,90,33);
+insert into main_score(id,chinese,math,english,bonus) values(9,10,54,1,13);
+insert into main_score(id,chinese,math,english,bonus) values(10,61,47,100,4);
+insert into main_score(id,chinese,math,english,bonus) values(11,31,60,114,1);
+insert into main_score(id,chinese,math,english,bonus) values(12,100,5,101,17);
+insert into main_score(id,chinese,math,english,bonus) values(13,17,62,86,7);
+insert into main_score(id,chinese,math,english,bonus) values(14,61,66,73,2);
+insert into main_score(id,chinese,math,english,bonus) values(15,49,1,62,28);
+insert into main_score(id,chinese,math,english,bonus) values(16,105,18,23,34);
+insert into main_score(id,chinese,math,english,bonus) values(17,20,59,107,21);
+insert into main_score(id,chinese,math,english,bonus) values(18,0,105,41,4);
+insert into main_score(id,chinese,math,english,bonus) values(19,111,45,25,22);
+insert into main_score(id,chinese,math,english,bonus) values(20,74,109,57,10);
+insert into main_score(id,chinese,math,english,bonus) values(21,36,75,92,15);
+insert into main_score(id,chinese,math,english,bonus) values(22,40,137,82,15);
+insert into main_score(id,chinese,math,english,bonus) values(23,138,135,77,14);
+
+#失败：
+insert into main_score(id,chinese,math,english,bonus) values(24,161,75,92,15);
+insert into main_score(id,chinese,math,english,bonus) values(25,40,172,82,15);
+insert into main_score(id,chinese,math,english,bonus) values(26,138,135,126,14);
+insert into main_score(id,chinese,math,english,bonus) values(24,-161,75,92,15);
+insert into main_score(id,chinese,math,english,bonus) values(25,40,172,-82,15);
+insert into main_score(id,chinese,math,english,bonus) values(26,138,135,126,14);
+
+
+#插入选修课成绩:
+#成功：
+insert into optional_score(id,course_name,score) values(1,'物理',112);
+insert into optional_score(id,course_name,score) values(2,'物理',34);
+insert into optional_score(id,course_name,score) values(3,'物理',96);
+insert into optional_score(id,course_name,score) values(4,'物理',27);
+insert into optional_score(id,course_name,score) values(5,'物理',15);
+insert into optional_score(id,course_name,score) values(6,'物理',64);
+insert into optional_score(id,course_name,score) values(7,'物理',21);
+insert into optional_score(id,course_name,score) values(8,'物理',11);
+insert into optional_score(id,course_name,score) values(9,'物理',114);
+insert into optional_score(id,course_name,score) values(10,'物理',65);
+insert into optional_score(id,course_name,score) values(11,'物理',103);
+insert into optional_score(id,course_name,score) values(12,'物理',32);
+insert into optional_score(id,course_name,score) values(13,'物理',11);
+insert into optional_score(id,course_name,score) values(14,'物理',27);
+insert into optional_score(id,course_name,score) values(15,'物理',30);
+insert into optional_score(id,course_name,score) values(16,'物理',64);
+insert into optional_score(id,course_name,score) values(17,'物理',119);
+insert into optional_score(id,course_name,score) values(18,'物理',55);
+insert into optional_score(id,course_name,score) values(19,'物理',60);
+insert into optional_score(id,course_name,score) values(20,'物理',80);
+insert into optional_score(id,course_name,score) values(21,'物理',63);
+insert into optional_score(id,course_name,score) values(22,'物理',13);
+insert into optional_score(id,course_name,score) values(23,'物理',5);
+insert into optional_score(id,course_name,score) values(1,'化学',110);
+insert into optional_score(id,course_name,score) values(2,'化学',13);
+insert into optional_score(id,course_name,score) values(3,'化学',68);
+insert into optional_score(id,course_name,score) values(4,'化学',41);
+insert into optional_score(id,course_name,score) values(5,'化学',116);
+insert into optional_score(id,course_name,score) values(6,'化学',101);
+insert into optional_score(id,course_name,score) values(7,'化学',78);
+insert into optional_score(id,course_name,score) values(8,'化学',48);
+insert into optional_score(id,course_name,score) values(9,'化学',15);
+insert into optional_score(id,course_name,score) values(10,'化学',99);
+insert into optional_score(id,course_name,score) values(11,'化学',60);
+insert into optional_score(id,course_name,score) values(12,'化学',18);
+insert into optional_score(id,course_name,score) values(13,'化学',65);
+insert into optional_score(id,course_name,score) values(14,'化学',9);
+insert into optional_score(id,course_name,score) values(15,'化学',114);
+insert into optional_score(id,course_name,score) values(16,'化学',17);
+insert into optional_score(id,course_name,score) values(17,'化学',76);
+insert into optional_score(id,course_name,score) values(18,'化学',50);
+insert into optional_score(id,course_name,score) values(19,'化学',22);
+insert into optional_score(id,course_name,score) values(20,'化学',38);
+insert into optional_score(id,course_name,score) values(21,'化学',39);
+insert into optional_score(id,course_name,score) values(22,'化学',78);
+insert into optional_score(id,course_name,score) values(23,'化学',45);
+
+#失败：
+insert into optional_score(id,course_name,score) values(24,'化学',-12);
+insert into optional_score(id,course_name,score) values(25,'物理',-12);
+insert into optional_score(id,course_name,score) values(26,'物理',130);
+insert into optional_score(id,course_name,score) values(27,'化学',130);
+
+
+#插入必修课成绩：
+#成功：
+insert into necessary_score(id,course_name,score) values(1,'政治',59);
+insert into necessary_score(id,course_name,score) values(2,'政治',75);
+insert into necessary_score(id,course_name,score) values(3,'政治',7);
+insert into necessary_score(id,course_name,score) values(4,'政治',77);
+insert into necessary_score(id,course_name,score) values(5,'政治',9);
+insert into necessary_score(id,course_name,score) values(6,'政治',85);
+insert into necessary_score(id,course_name,score) values(7,'政治',26);
+insert into necessary_score(id,course_name,score) values(8,'政治',26);
+insert into necessary_score(id,course_name,score) values(9,'政治',59);
+insert into necessary_score(id,course_name,score) values(10,'政治',62);
+insert into necessary_score(id,course_name,score) values(11,'政治',10);
+insert into necessary_score(id,course_name,score) values(12,'政治',3);
+insert into necessary_score(id,course_name,score) values(13,'政治',15);
+insert into necessary_score(id,course_name,score) values(14,'政治',25);
+insert into necessary_score(id,course_name,score) values(15,'政治',21);
+insert into necessary_score(id,course_name,score) values(16,'政治',4);
+insert into necessary_score(id,course_name,score) values(17,'政治',55);
+insert into necessary_score(id,course_name,score) values(18,'政治',62);
+insert into necessary_score(id,course_name,score) values(19,'政治',80);
+insert into necessary_score(id,course_name,score) values(20,'政治',7);
+insert into necessary_score(id,course_name,score) values(21,'政治',7);
+insert into necessary_score(id,course_name,score) values(22,'政治',12);
+insert into necessary_score(id,course_name,score) values(23,'政治',74);
+insert into necessary_score(id,course_name,score) values(1,'历史',9);
+insert into necessary_score(id,course_name,score) values(2,'历史',98);
+insert into necessary_score(id,course_name,score) values(3,'历史',94);
+insert into necessary_score(id,course_name,score) values(4,'历史',17);
+insert into necessary_score(id,course_name,score) values(5,'历史',44);
+insert into necessary_score(id,course_name,score) values(6,'历史',69);
+insert into necessary_score(id,course_name,score) values(7,'历史',95);
+insert into necessary_score(id,course_name,score) values(8,'历史',34);
+insert into necessary_score(id,course_name,score) values(9,'历史',81);
+insert into necessary_score(id,course_name,score) values(10,'历史',21);
+insert into necessary_score(id,course_name,score) values(11,'历史',80);
+insert into necessary_score(id,course_name,score) values(12,'历史',30);
+insert into necessary_score(id,course_name,score) values(13,'历史',8);
+insert into necessary_score(id,course_name,score) values(14,'历史',82);
+insert into necessary_score(id,course_name,score) values(15,'历史',60);
+insert into necessary_score(id,course_name,score) values(16,'历史',13);
+insert into necessary_score(id,course_name,score) values(17,'历史',64);
+insert into necessary_score(id,course_name,score) values(18,'历史',18);
+insert into necessary_score(id,course_name,score) values(19,'历史',27);
+insert into necessary_score(id,course_name,score) values(20,'历史',31);
+insert into necessary_score(id,course_name,score) values(21,'历史',30);
+insert into necessary_score(id,course_name,score) values(22,'历史',42);
+insert into necessary_score(id,course_name,score) values(23,'历史',85);
+insert into necessary_score(id,course_name,score) values(1,'地理',57);
+insert into necessary_score(id,course_name,score) values(2,'地理',36);
+insert into necessary_score(id,course_name,score) values(3,'地理',85);
+insert into necessary_score(id,course_name,score) values(4,'地理',83);
+insert into necessary_score(id,course_name,score) values(5,'地理',43);
+insert into necessary_score(id,course_name,score) values(6,'地理',63);
+insert into necessary_score(id,course_name,score) values(7,'地理',91);
+insert into necessary_score(id,course_name,score) values(8,'地理',20);
+insert into necessary_score(id,course_name,score) values(9,'地理',90);
+insert into necessary_score(id,course_name,score) values(10,'地理',77);
+insert into necessary_score(id,course_name,score) values(11,'地理',89);
+insert into necessary_score(id,course_name,score) values(12,'地理',26);
+insert into necessary_score(id,course_name,score) values(13,'地理',88);
+insert into necessary_score(id,course_name,score) values(14,'地理',98);
+insert into necessary_score(id,course_name,score) values(15,'地理',10);
+insert into necessary_score(id,course_name,score) values(16,'地理',67);
+insert into necessary_score(id,course_name,score) values(17,'地理',56);
+insert into necessary_score(id,course_name,score) values(18,'地理',74);
+insert into necessary_score(id,course_name,score) values(19,'地理',40);
+insert into necessary_score(id,course_name,score) values(20,'地理',32);
+insert into necessary_score(id,course_name,score) values(21,'地理',13);
+insert into necessary_score(id,course_name,score) values(22,'地理',38);
+insert into necessary_score(id,course_name,score) values(23,'地理',12);
+insert into necessary_score(id,course_name,score) values(1,'生物',13);
+insert into necessary_score(id,course_name,score) values(2,'生物',77);
+insert into necessary_score(id,course_name,score) values(3,'生物',50);
+insert into necessary_score(id,course_name,score) values(4,'生物',89);
+insert into necessary_score(id,course_name,score) values(5,'生物',29);
+insert into necessary_score(id,course_name,score) values(6,'生物',45);
+insert into necessary_score(id,course_name,score) values(7,'生物',19);
+insert into necessary_score(id,course_name,score) values(8,'生物',0);
+insert into necessary_score(id,course_name,score) values(9,'生物',51);
+insert into necessary_score(id,course_name,score) values(10,'生物',86);
+insert into necessary_score(id,course_name,score) values(11,'生物',82);
+insert into necessary_score(id,course_name,score) values(12,'生物',87);
+insert into necessary_score(id,course_name,score) values(13,'生物',29);
+insert into necessary_score(id,course_name,score) values(14,'生物',94);
+insert into necessary_score(id,course_name,score) values(15,'生物',52);
+insert into necessary_score(id,course_name,score) values(16,'生物',6);
+insert into necessary_score(id,course_name,score) values(17,'生物',72);
+insert into necessary_score(id,course_name,score) values(18,'生物',13);
+insert into necessary_score(id,course_name,score) values(19,'生物',25);
+insert into necessary_score(id,course_name,score) values(20,'生物',55);
+insert into necessary_score(id,course_name,score) values(21,'生物',8);
+insert into necessary_score(id,course_name,score) values(22,'生物',50);
+insert into necessary_score(id,course_name,score) values(23,'生物',39);
+
+#失败：
+insert into necessary_score(id,course_name,score) values(22,'生物',50);
+insert into necessary_score(id,course_name,score) values(23,'生物',39);
+insert into necessary_score(id,course_name,score) values(24,'生物',111);
+insert into necessary_score(id,course_name,score) values(25,'生物',120);
+

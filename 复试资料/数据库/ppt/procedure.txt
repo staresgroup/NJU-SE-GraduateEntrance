@@ -1,0 +1,76 @@
+#请先运行database和trigger中的内容
+#此文件为计算总分和计算考生选修等级的过程
+
+use dbhomework;
+
+#清空记录避免冲突
+drop procedure if exists calculate_level;
+drop procedure if exists calculate_total;
+
+#用于计算选修课程等级的过程
+delimiter $$
+create procedure calculate_level(in name varchar(255))
+	begin
+		declare aplus int;
+		declare a int;
+		declare bplus int;
+		declare b int;
+		declare c int;
+		declare counter int;
+		declare total int;
+
+		select count(*) into total from  optional_score o where o.course_name=name;
+		set counter=total*0.05-1;
+		select score into aplus from optional_score o where o.course_name=name order by score desc limit counter,1;
+		set counter=total*0.2-1;
+		select score into a from optional_score o where o.course_name=name order by score desc limit counter,1;
+		set counter=total*0.3-1;
+		select score into bplus from optional_score o where o.course_name=name order by score desc limit counter,1;
+		set counter=total*0.5-1;
+		select score into b from optional_score o where o.course_name=name order by score desc limit counter,1;
+		set counter=total*0.9-1;
+		select score into c from optional_score o where o.course_name=name order by score desc limit counter,1;
+
+		update optional_score o set level='D' where o.course_name=name;
+		update optional_score o set level='C' where o.course_name=name and o.score>=c;
+		update optional_score o set level='B' where o.course_name=name and o.score>=b;
+		update optional_score o set level='B+' where o.course_name=name and o.score>=bplus;
+		update optional_score o set level='A' where o.course_name=name and o.score>=a;
+		update optional_score o set level='A+' where o.course_name=name and o.score>=aplus;
+	end;
+$$
+delimiter ;
+
+#用于计算学生总分
+delimiter $$
+create procedure calculate_total()
+	begin
+		declare identity int;
+		declare cscore int;
+		declare escore int;
+		declare mscore int;
+		declare bscore int;
+		declare ascore int;
+		declare done int;
+		declare total int;
+
+		declare calc_total cursor for select id,chinese,math,english,bonus from main_score;
+		declare continue handler for not found set done = 1;
+		open calc_total;
+
+		calculate : loop
+			fetch calc_total into identity,cscore,mscore,escore,bscore;
+			set total=cscore+mscore+escore+bscore;
+			select count(*) into ascore from necessary_score n where n.id=identity and level='A';
+			if ascore = 4 then
+				set ascore = ascore+1;
+			end if;
+			set total = total+ascore;
+			update main_score m set m.total=total where m.id=identity;
+			if done then
+				leave calculate;
+			end if;
+		end loop calculate;
+	end;
+$$
+delimiter ;

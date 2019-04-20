@@ -1,0 +1,177 @@
+#请先运行database中的内容
+#因为mysql的trigger无法自主中断，所以使用调用不存在的函数来中断插入、修改操作
+#错误码作为不存在的函数名来展现
+
+use dbhomework;
+
+#清空记录避免冲突
+drop trigger if exists course_insert;
+drop trigger if exists course_update;
+drop trigger if exists main_score_insert;
+drop trigger if exists main_score_update;
+drop trigger if exists optional_score_insert;
+drop trigger if exists optional_score_update;
+drop trigger if exists necessary_score_insert;
+drop trigger if exists necessary_score_update;
+
+#限制course表中不能存在重复名称的课程
+delimiter $$
+create trigger course_insert before insert on course for each row
+	begin
+		declare temp varchar(255);
+		declare done int;
+		declare find_category cursor for select category from student where student.id = new.id;
+		declare continue handler for not found set done = 1;
+		open find_category;
+		begin_find : loop
+			fetch find_category into temp;
+			if done then
+				leave begin_find;
+			end if;
+		end loop begin_find;
+		close find_category;
+		if temp = '理科' and new.optional1<>'物理' then
+			call category_does_not_go_with_optional();
+		elseif temp = '文科' and new.optional1 !='历史' then
+			call category_does_not_go_with_optional();
+		elseif new.optional1 = new.optional2 
+			or new.optional1 = new.necessary1 
+			or new.optional1 = new.necessary2 
+			or new.optional1 = new.necessary3 
+			or new.optional1 = new.necessary4 
+			or new.optional2 = new.necessary4 
+			or new.optional2 = new.necessary3 
+			or new.optional2 = new.necessary2 
+			or new.optional2 = new.necessary1 
+			or new.necessary1 = new.necessary2 
+			or new.necessary1 = new.necessary3 
+			or new.necessary1 = new.necessary4 
+			or new.necessary2 = new.necessary3 
+			or new.necessary2 = new.necessary4 
+			or new.necessary3=new.necessary4 then 
+			call no_same_name_course();
+		end if;
+	end;
+$$
+create trigger course_update before update on course for each row
+	begin
+		declare temp varchar(255);
+		declare done int;
+		declare find_category cursor for select category from student where student.id = new.id;
+		declare continue handler for not found set done = 1;
+		open find_category;
+		begin_find : loop
+			fetch find_category into temp;
+			if done then
+				leave begin_find;
+			end if;
+		end loop begin_find;
+		close find_category;
+		if temp = '理科' and new.optional1<>'物理' then
+			call category_does_not_go_with_optional();
+		elseif temp = '文科' and new.optional1 !='历史' then
+			call category_does_not_go_with_optional();
+		elseif new.optional1 = new.optional2 
+			or new.optional1 = new.necessary1 
+			or new.optional1 = new.necessary2 
+			or new.optional1 = new.necessary3 
+			or new.optional1 = new.necessary4 
+			or new.optional2 = new.necessary4 
+			or new.optional2 = new.necessary3 
+			or new.optional2 = new.necessary2 
+			or new.optional2 = new.necessary1 
+			or new.necessary1 = new.necessary2 
+			or new.necessary1 = new.necessary3 
+			or new.necessary1 = new.necessary4 
+			or new.necessary2 = new.necessary3 
+			or new.necessary2 = new.necessary4 
+			or new.necessary3=new.necessary4 then 
+			call no_same_name_course();
+		end if;
+	end;
+$$
+delimiter ;
+
+#限制主课成绩范围
+delimiter $$
+create trigger main_score_insert before insert on main_score for each row
+	begin
+		if new.chinese>160 or new.chinese<0 then
+			call chinese_score_if_out_of_range();
+		elseif new.math>160 or new.math<0 then
+			call math_score_is_out_of_range();
+		elseif new.english>120 or new.english<0 then
+			call english_score_is_out_of_range();
+		elseif new.bonus>40 or new.bonus<0 then
+			call bonus_score_is_out_of_range();
+		elseif new.total>485 or new.total<0 then
+			call total_score_is_out_of_range();
+		end if;
+	end
+$$
+create trigger main_score_update before update on main_score for each row
+	begin
+		if new.chinese>160 or new.chinese<0 then
+			call chinese_score_if_out_of_range();
+		elseif new.math>160 or new.math<0 then
+			call math_score_is_out_of_range();
+		elseif new.english>120 or new.english<0 then
+			call english_score_is_out_of_range();
+		elseif new.bonus>40 or new.bonus<0 then
+			call bonus_score_is_out_of_range();
+		end if;
+	end
+$$
+delimiter ;
+
+#限制选修课成绩范围
+delimiter $$
+create trigger optional_score_insert before insert on optional_score for each row
+	begin
+		if new.score>120 or new.score<0 then
+			call score_is_out_of_range();
+		end if;
+	end
+$$
+create trigger optional_score_update before update on optional_score for each row
+	begin
+		if new.score>120 or new.score<0 then
+			call score_is_out_of_range();
+		end if;
+	end
+$$
+delimiter ;
+
+#限制必修课成绩范围，并且自动生成必修等级
+delimiter $$
+create trigger necessary_score_insert before insert on necessary_score for each row
+	begin
+		if new.score>100 or new.score<0 then
+			call score_is_out_of_range();
+		elseif new.score>89 then
+			set new.level:='A';
+		elseif new.score>74 then
+			set new.level:='B';
+		elseif new.score>59 then
+			set new.level:='C';
+		else
+			set new.level:='D';
+		end if;
+	end
+$$
+create trigger necessary_score_update before update on necessary_score for each row
+	begin
+		if new.score>100 or new.score<0 then
+			call score_is_out_of_range();
+		elseif new.score>89 then
+			set new.level:='A';
+		elseif new.score>74 then
+			set new.level:='B';
+		elseif new.score>59 then
+			set new.level:='C';
+		else
+			set new.level:='D';
+		end if;
+	end
+$$
+delimiter ;

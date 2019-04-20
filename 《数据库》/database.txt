@@ -1,0 +1,82 @@
+#使用mysql数据库
+#因无法使用check，故使用了trigger.
+#trigger见trigger.sql
+#所有代码直接复制黏贴即可运行
+#必修课程登记在更新分数时自动更新等级
+#!!!运行时，在命令行中曾碰到过字符集错误，在sqlyog中运行无误
+
+#创建数据库
+create database dbhomework;
+use dbhomework;
+
+#删除已创建表
+drop table if exists course;
+drop table if exists main_score;
+drop table if exists optional_score;
+drop table if exists necessary_score;
+drop table if exists student;
+drop table if exists school;
+
+#记录学校信息
+create table school(
+    id int(20) not null comment '学校id,主键',
+    name varchar(20) not null unique comment '名称',
+    city enum('南京','苏州','无锡','镇江','常州','宿迁','泰州','淮安','南通','盐城','徐州','连云港','扬州') not null comment '所在城市',
+    primary key (id)
+) charset=utf8;
+
+#记录学生信息
+create table student(
+	id int(20) not null comment '学生id,主键',
+	name varchar(10) not null comment '姓名',
+	sex enum('男','女') not null comment '性别',
+	category enum('理科','文科') not null comment '所属类别',
+	sid int(20) not null comment '所在学校id,外键',
+	primary key (id),
+	FOREIGN KEY (sid) REFERENCES school(id) on delete restrict on update cascade
+) charset=utf8;
+
+#记录选课信息
+create table course(
+	id int(20) not null comment '学生id，外键，主键',
+	optional1 enum('物理','历史') not null comment '选修1',
+	optional2 enum('化学','政治','地理','生物') not null comment '选修2',
+	necessary1 enum('物理','化学','政治','历史','地理','生物') not null comment '必修1',
+	necessary2 enum('物理','化学','政治','历史','地理','生物') not null comment '必修2',
+	necessary3 enum('物理','化学','政治','历史','地理','生物') not null comment '必修3',
+	necessary4 enum('物理','化学','政治','历史','地理','生物') not null comment '必修4',
+	primary key (id),
+	FOREIGN KEY (id) REFERENCES student(id) on delete restrict on update cascade
+) charset=utf8;
+
+#记录主课分数
+create table main_score(
+	id int(20) not null comment '学生id，外键，主键',
+	chinese int(3) comment '语文分数',
+	math int(3) comment '数学分数',
+	english int(3) comment '英语分数',
+	bonus int(3) comment '附加分',
+	total int(3) comment '总分',
+	primary key (id),
+	FOREIGN KEY (id) REFERENCES student(id) on delete restrict on update cascade
+) charset=utf8;
+
+#选修课分数
+create table optional_score(
+	id int(20) not null comment '学生id，外键，主键',
+	course_name enum('物理','化学','政治','历史','地理','生物') not null comment '选修课程名',
+	score int(3) comment '选修分数',
+	level enum('A+','A','B+','B','C','D') comment '选修等级',
+	primary key (id,course_name),
+	FOREIGN KEY (id) REFERENCES student(id) on delete restrict on update cascade
+) charset=utf8;
+
+#必修课分数
+create table necessary_score(
+	id int(20) not null comment '学生id，外键，主键',
+	course_name enum('物理','化学','政治','历史','地理','生物') not null comment '必修课程名',
+	score int(3) comment '必修分数',
+	level enum('A','B','C','D') comment '必修等级',
+	primary key (id,course_name),
+	FOREIGN KEY (id) REFERENCES student(id) on delete restrict on update cascade
+) charset=utf8;

@@ -1,0 +1,3 @@
+Java编程思想第四版				第12章4节 p369-p376
+The Java Language(Java SE 7 Edition)		3.10.5	String Literals
+						15.18.1	String Concatenation Operator +

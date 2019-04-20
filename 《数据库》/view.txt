@@ -1,0 +1,111 @@
+#下列为文科与理科的视图
+
+use dbhomework;
+
+#清空记录避免冲突
+drop view if exists art_student;
+drop view if exists science_student;
+
+#文科生视图
+create view art_student as
+	select 
+		s.id as 'id',
+		s.name as '姓名',
+		s.sex as '性别',
+		m.chinese as '语文分',
+		m.math as '数学分',
+		m.english as '英语分',
+		m.bonus as '附加分',
+		m.total as '总分',
+		(m.chinese+m.math+m.bonus) as '排序分',
+		c.optional1 as '选修1',
+		o1.level as '选修1等级',
+		c.optional2 as '选修2',
+		o2.level as '选修2等级',
+		c.necessary1 as '必修1',
+		n1.level as '必修1等级',
+		c.necessary2 as '必修2',
+		n2.level as '必修2等级',
+		c.necessary3 as '必修3',
+		n3.level as '必修3等级',
+		c.necessary4 as '必修4',
+		n4.level as '必修4等级'
+	from
+		student s,
+		main_score m,
+		course c,
+		optional_score o1,
+		optional_score o2,
+		necessary_score n1,
+		necessary_score n2,
+		necessary_score n3,
+		necessary_score n4
+	where
+		s.category = '文科' and
+		s.id = m.id and
+		m.id = c.id and
+		c.id = o1.id and
+		o1.id = o2.id and 
+		o2.id = n1.id and
+		n1.id = n2.id and
+		n2.id = n3.id and
+		n3.id = n4.id and
+		c.optional1 = o1.course_name and
+		c.optional2 = o2.course_name and
+		c.necessary1 = n1.course_name and
+		c.necessary2 = n2.course_name and
+		c.necessary3 = n3.course_name and
+		c.necessary4 = n4.course_name
+	;
+
+#理科生视图
+create view science_student as
+	select 
+		s.id as 'id',
+		s.name as '姓名',
+		s.sex as '性别',
+		m.chinese as '语文分',
+		m.math as '数学分',
+		m.english as '英语分',
+		m.bonus as '附加分',
+		m.total as '总分',
+		(m.chinese+m.math+m.bonus) as '排序分',
+		c.optional1 as '选修1',
+		o1.level as '选修1等级',
+		c.optional2 as '选修2',
+		o2.level as'选修2等级',
+		c.necessary1 as '必修1',
+		n1.level as '必修1等级',
+		c.necessary2 as '必修2',
+		n2.level as '必修2等级',
+		c.necessary3 as '必修3',
+		n3.level as '必修3等级',
+		c.necessary4 as '必修4',
+		n4.level as '必修4等级'
+	from
+		student s,
+		main_score m,
+		course c,
+		optional_score o1,
+		optional_score o2,
+		necessary_score n1,
+		necessary_score n2,
+		necessary_score n3,
+		necessary_score n4
+	where
+		s.category = '理科' and
+		s.id = m.id and
+		m.id = c.id and
+		c.id = o1.id and
+		o1.id = o2.id and 
+		o2.id = n1.id and
+		n1.id = n2.id and
+		n2.id = n3.id and
+		n3.id = n4.id and
+		c.optional1 = o1.course_name and
+		c.optional2 = o2.course_name and
+		c.necessary1 = n1.course_name and
+		c.necessary2 = n2.course_name and
+		c.necessary3 = n3.course_name and
+		c.necessary4 = n4.course_name
+	;
